@@ -1,0 +1,12 @@
+#sqlc.yaml
+## books
+version: "2"
+sql:
+  - engine: "postgresql"
+    queries: "services/books/repository/postgres/query.sql"
+    schema: "migrations"
+    gen:
+      go:
+        package: "books"
+        sql_package: "pgx/v5" #指定使用pgx
+        out: "services/books/repository/postgres/"
