@@ -24,9 +24,11 @@ func main() {
 	//initial iris app
 	app := iris.Default()
 
+	//把repo, usecase,delivery都在main中初始化，這樣就相依性就會很明確，也很好測試。
 	//直接用sqlc產生的queries來當作repository，等到真的要寫測試的時候，再來抽出repo的interface也不遲。
 	booksRepo := _bookRepo.New(pgConn)
 	bookUsecase := _bookUsecase.NewBookUsecase(booksRepo)
+	//每個delivery把handler掛在app的行為分開來，這樣未來要測試的時候就可以不用接上所有的delivery，只用接需要測試的，就可以測試整個httpRequest了。
 	_bookHttpDelivery.AddBookHandlersToApp(app, bookUsecase)
 
 	//start server

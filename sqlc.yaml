@@ -10,3 +10,4 @@ sql:
         package: "books"
         sql_package: "pgx/v5" #指定使用pgx
         out: "services/books/repository/postgres/"
+        emit_prepared_queries: true  #指定是否產生預執行的query，目前好像在pgx上沒有支援（sqlc ver v1.20.0）
